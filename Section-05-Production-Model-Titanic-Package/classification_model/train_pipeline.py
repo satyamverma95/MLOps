@@ -9,7 +9,7 @@ def run_training() -> None:
     """Train the model."""
 
     # read training data
-    data = load_dataset(file_name=config.app_config.training_data_file)
+    data = load_dataset(file_name=config.app_config.raw_data_file)
 
     # divide train and test
     X_train, X_test, y_train, y_test = train_test_split(
@@ -20,9 +20,11 @@ def run_training() -> None:
         # for reproducibility
         random_state=config.model_config.random_state,
     )
+
     y_train = np.log(y_train)
 
     # fit model
+    print(X_train, y_train)
     price_pipe.fit(X_train, y_train)
 
     # persist trained model

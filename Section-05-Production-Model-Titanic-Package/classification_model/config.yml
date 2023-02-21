@@ -4,6 +4,7 @@ package_name: classification_model
 # Data Files
 training_data_file: train.csv
 test_data_file: test.csv
+raw_data_file : raw_data.csv
 
 # Variables
 # The variable we are attempting to predict (sale price)
@@ -22,19 +23,14 @@ pipeline_save_file: classification_model_output_v
 
 # Intendention matters in yml and here a key with intended dash is the list 
 features:
-  - pclass #No NA
-  - name  #No Usefull PII Data
+  - pclass #No NA  
   - sex   #No NA
   - age    #Has NA
-  - sibSp  #NO NA
+  - sibsp  #NO NA
   - parch  # No NA
-  - ticket  #Not Clear what to do with this feature.
   - fare #No NA
   - cabin #Has NA
-  - embarked #Has NA
-  - boat
-  - body
-  - home.dest
+  - embarked #Has N
 
 
 
@@ -72,7 +68,7 @@ numerical_vars_with_na:
 numericals_log_vars:
   - fare
   - age
-  - sibSp
+  - sibsp
   - parch
 
 # variables to map

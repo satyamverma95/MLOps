@@ -24,18 +24,72 @@ env TOX_ENV_DIR: C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-0
 env VIRTUAL_ENV: C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\.tox\test_package
 env COLUMNS: 159
 env LINES: 14
-metadata pid: 24896
+metadata pid: 20368
 cwd: C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package
 allow: C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\.tox\test_package\Scripts\*
 cmd: python classification_model/train_pipeline.py
 exit_code: 1
+Type of Object <class 'pandas.core.frame.DataFrame'>
+dataframe       pclass  survived                                             name     sex     age  ...    cabin  embarked boat body                        home.dest
+0          1         1                    Allen, Miss. Elisabeth Walton  female      29  ...       B5         S    2    ?                     St Louis, MO
+1          1         1                   Allison, Master. Hudson Trevor    male  0.9167  ...  C22 C26         S   11    ?  Montreal, PQ / Chesterville, ON
+2          1         0                     Allison, Miss. Helen Loraine  female       2  ...  C22 C26         S    ?    ?  Montreal, PQ / Chesterville, ON
+3          1         0             Allison, Mr. Hudson Joshua Creighton    male      30  ...  C22 C26         S    ?  135  Montreal, PQ / Chesterville, ON
+4          1         0  Allison, Mrs. Hudson J C (Bessie Waldo Daniels)  female      25  ...  C22 C26         S    ?    ?  Montreal, PQ / Chesterville, ON
+...      ...       ...                                              ...     ...     ...  ...      ...       ...  ...  ...                              ...
+1304       3         0                             Zabour, Miss. Hileni  female    14.5  ...        ?         C    ?  328                                ?
+1305       3         0                            Zabour, Miss. Thamine  female       ?  ...        ?         C    ?    ?                                ?
+1306       3         0                        Zakarian, Mr. Mapriededer    male    26.5  ...        ?         C    ?  304                                ?
+1307       3         0                              Zakarian, Mr. Ortin    male      27  ...        ?         C    ?    ?                                ?
+1308       3         0                               Zimmerman, Mr. Leo    male      29  ...        ?         S    ?    ?                                ?
+
+[1309 rows x 14 columns]
+      pclass     sex   age  sibsp  parch     fare cabin embarked
+973        3    male   NaN      0      0   7.5500   NaN        S
+462        2    male  24.0      2      0  31.5000   NaN        S
+127        1  female  35.0      1      0  53.1000  C123        S
+1307       3    male  27.0      0      0   7.2250   NaN        C
+1148       3    male  35.0      0      0   7.1250   NaN        S
+...      ...     ...   ...    ...    ...      ...   ...      ...
+466        2    male  34.0      1      0  26.0000   NaN        S
+299        1    male  40.0      0      0  27.7208   NaN        C
+493        2    male  31.0      1      1  37.0042   NaN        C
+527        2    male  28.0      0      0  10.5000   NaN        S
+1192       3    male  24.5      0      0   8.0500   NaN        S
+
+[1178 rows x 8 columns] 973    -inf
+462    -inf
+127     0.0
+1307   -inf
+1148   -inf
+       ... 
+466    -inf
+299    -inf
+493    -inf
+527    -inf
+1192   -inf
+Name: survived, Length: 1178, dtype: float64
 
 standard error:
+C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\.tox\test_package\lib\site-packages\pandas\core\arraylike.py:402: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
 Traceback (most recent call last):
-  File "C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\classification_model\train_pipeline.py", line 33, in <module>
+  File "C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\classification_model\train_pipeline.py", line 35, in <module>
     run_training()
-  File "C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\classification_model\train_pipeline.py", line 12, in run_training
-    data = load_dataset(file_name=config.app_config.training_data_file)
-  File "C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\classification_model\processing\data_manager.py", line 76, in load_dataset
-    dataframe = load_raw__dataset(Path(f"{DATASET_DIR}/{file_name}"))
-TypeError: load_raw__dataset() takes 0 positional arguments but 1 was given
+  File "C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\classification_model\train_pipeline.py", line 28, in run_training
+    price_pipe.fit(X_train, y_train)
+  File "C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\.tox\test_package\lib\site-packages\sklearn\pipeline.py", line 405, in fit
+    self._final_estimator.fit(Xt, y, **fit_params_last_step)
+  File "C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\.tox\test_package\lib\site-packages\sklearn\linear_model\_coordinate_descent.py", line 908, in fit
+    X, y = self._validate_data(
+  File "C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\.tox\test_package\lib\site-packages\sklearn\base.py", line 565, in _validate_data
+    X, y = check_X_y(X, y, **check_params)
+  File "C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\.tox\test_package\lib\site-packages\sklearn\utils\validation.py", line 1106, in check_X_y
+    X = check_array(
+  File "C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\.tox\test_package\lib\site-packages\sklearn\utils\validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\.tox\test_package\lib\site-packages\sklearn\utils\_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "C:\Users\satya\OneDrive\Documents\GitHub\ML_Ops\MLOps\Section-05-Production-Model-Titanic-Package\.tox\test_package\lib\site-packages\pandas\core\generic.py", line 2070, in __array__
+    return np.asarray(self._values, dtype=dtype)
+ValueError: could not convert string to float: 'F'

@@ -11,7 +11,7 @@ from sklearn.pipeline import Pipeline
 from classification_model import __version__ as _version
 from classification_model.config.core import DATASET_DIR, TRAINED_MODEL_DIR, config
 
-def remove_unwarranted_symbols(*, dataframe) -> pd.DataFrame:
+def remove_unwarranted_symbols(*, dataframe:pd.DataFrame) -> pd.DataFrame:
 
     dataframe = dataframe.copy()
     dataframe = dataframe.replace('?', np.nan)
@@ -19,8 +19,7 @@ def remove_unwarranted_symbols(*, dataframe) -> pd.DataFrame:
     return (dataframe)
 
 
-
-def get_first_cabin (*, row):
+def get_first_cabin (*, row:str) -> str:
     
     try:
         return row.split()[0]
@@ -28,7 +27,7 @@ def get_first_cabin (*, row):
         return np.nan
     
 
-def get_title (*, passenger) -> str:
+def get_title (*, passenger:str) -> str:
 
     if re.search('Mrs', passenger):
         return 'Mrs'
@@ -53,10 +52,12 @@ def pre_preocessing_pipeline(*, dataframe) -> pd.DataFrame:
     #   5) Dropping the unwanted columns in the dataframe.
     ########################################################################
 
+    print("Type of Object", type(dataframe))
+    print("dataframe", dataframe)
 
-    dataframe[config.model_config.cabin_vars] = dataframe[config.model_config.cabin_vars].str.apply(get_first_cabin)
-    dataframe[config.model_config.new_feature] = dataframe[config.model_config.name_vars].apply(get_title)
-    dataframe = remove_unwarranted_symbols(dataframe)
+    dataframe['cabin'] = dataframe['cabin'].apply(lambda row: get_first_cabin(row=row))
+    dataframe['name'] = dataframe['name'].apply(lambda passenger: get_title(passenger=passenger))
+    dataframe = remove_unwarranted_symbols(dataframe=dataframe)
     dataframe['fare'] = dataframe['fare'].astype('float')
     dataframe['age'] = dataframe['age'].astype('float')
     dataframe.drop(labels=config.model_config.unused_vars, axis=1, inplace=True)
@@ -73,8 +74,8 @@ def load_raw_dataset(*, file_name: str) -> pd.DataFrame:
 
 def load_dataset(*, file_name: str) -> pd.DataFrame:
     
-    dataframe = load_raw_dataset(Path(f"{DATASET_DIR}/{file_name}"))
-    dataframe = pre_preocessing_pipeline(dataframe)
+    dataframe = pd.read_csv(Path(f"{DATASET_DIR}/{file_name}"))
+    dataframe = pre_preocessing_pipeline(dataframe=dataframe)
     
     return dataframe
 

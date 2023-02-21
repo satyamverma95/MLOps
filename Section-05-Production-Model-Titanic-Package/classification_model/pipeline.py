@@ -45,9 +45,9 @@ price_pipe = Pipeline(
                 variables=config.model_config.numerical_vars_with_na,
             ),
         ),
-        ("drop_features", DropFeatures(features_to_drop=[config.model_config.unused_vars])),
+        #("drop_features", DropFeatures(features_to_drop=[config.model_config.unused_vars])),
         # ==== VARIABLE TRANSFORMATION =====
-        ("log", LogTransformer(variables=config.model_config.numericals_log_vars)),
+        #("log", LogTransformer(variables=config.model_config.numericals_log_vars)),
         # === mappers ====
         # No Mapping Done here
         # == CATEGORICAL ENCODING
@@ -64,13 +64,6 @@ price_pipe = Pipeline(
             ),
         ),
         # encode categorical variables using the target mean
-        (
-            "categorical_encoder",
-            OrdinalEncoder(
-                encoding_method="ordered",
-                variables=config.model_config.categorical_vars,
-            ),
-        ),
         ("scaler", MinMaxScaler()),
         (
             "Lasso",
