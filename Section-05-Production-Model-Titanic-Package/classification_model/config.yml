@@ -7,7 +7,7 @@ test_data_file: test.csv
 
 # Variables
 # The variable we are attempting to predict (sale price)
-target: Survived
+target: survived
 
 pipeline_name: classification_model
 pipeline_save_file: classification_model_output_v
@@ -22,17 +22,21 @@ pipeline_save_file: classification_model_output_v
 
 # Intendention matters in yml and here a key with intended dash is the list 
 features:
-  - PassengerId #No NA
-  - Pclass #No NA
-  - Name  #No Usefull PII Data
-  - Sex   #No NA
-  - Age    #Has NA
-  - SibSp  #NO NA
-  - Parch  # No NA
-  - Ticket  #Not Clear what to do with this feature.
-  - Fare #No NA
-  - Cabin #Has NA
-  - Embarked #Has NA
+  - pclass #No NA
+  - name  #No Usefull PII Data
+  - sex   #No NA
+  - age    #Has NA
+  - sibSp  #NO NA
+  - parch  # No NA
+  - ticket  #Not Clear what to do with this feature.
+  - fare #No NA
+  - cabin #Has NA
+  - embarked #Has NA
+  - boat
+  - body
+  - home.dest
+
+
 
 #['pclass', 'age', 'sibsp', 'parch', 'fare'] - Numerical
 #['sex', 'cabin', 'embarked', 'title'] - Categorical
@@ -48,9 +52,12 @@ alpha: 0.001
 
 # categorical variables with NA in train set, NA was already mentioend in the dataset.
 categorical_vars_with_na_frequent:
-  - Cabin
-  - Embarked
+  - cabin
+  - embarked
 
+categorical_vars_with_na_missing:
+  - sex
+  - embarked
 
 #What is this variable is meant for ?
 #categorical_vars_with_na_missing:
@@ -58,32 +65,44 @@ categorical_vars_with_na_frequent:
 # - Embarked
 
 numerical_vars_with_na:
-  - Age
+  - age
 
 
 # variables to log transform
 numericals_log_vars:
-  - Fare
-  - Age
-  - SibSp
-  - Parch
-
+  - fare
+  - age
+  - sibSp
+  - parch
 
 # variables to map
 one_hot_encoding_vars:
-  - Sex
+  - sex
+
+cabin_vars:
+  - cabin
+
+name_vars:
+  - name
+
+new_feature:
+  - title
+
+unused_vars:
+  - name
+  - ticket
+  - boat 
+  - body
+  - home.dest
 
 categorical_vars:
-  - Cabin
-  - Embarked
+  - cabin
+  - embarked
   
 
 # variable mappings
 #If you want to convert categorical value to Numerical value we use this mapping. Unioun of all categorical values 
 #mentioned in the quals_vars and put them in qual_mappings with numeric values.
-gender_mappings:
-  male: 0
-  female: 1
 
 
 

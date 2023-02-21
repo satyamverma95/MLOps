@@ -45,7 +45,7 @@ price_pipe = Pipeline(
                 variables=config.model_config.numerical_vars_with_na,
             ),
         ),
-        ("drop_features", DropFeatures(features_to_drop=[config.model_config.ref_var])),
+        ("drop_features", DropFeatures(features_to_drop=[config.model_config.unused_vars])),
         # ==== VARIABLE TRANSFORMATION =====
         ("log", LogTransformer(variables=config.model_config.numericals_log_vars)),
         # === mappers ====

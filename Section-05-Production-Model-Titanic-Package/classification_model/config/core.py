@@ -38,11 +38,15 @@ class ModelConfig(BaseModel):
     random_state: int
     alpha: float
     categorical_vars_with_na_frequent: List[str]
+    categorical_vars_with_na_missing : List[str]
     numerical_vars_with_na: List[str]
     numericals_log_vars: Sequence[str] ## Need to see what the difference in list and Sequence.
-    genderone_hot_encoding_vars: List[str]
+    one_hot_encoding_vars: List[str]
+    cabin_vars : List[str]
+    name_vars: List[str]
+    new_feature : List[str]
+    unused_vars : List[str]
     categorical_vars: Sequence[str]
-    gender_mappings: Dict[str, int]
     
 
     #variables_to_rename: Dict
