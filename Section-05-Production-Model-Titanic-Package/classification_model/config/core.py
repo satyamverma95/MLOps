@@ -39,8 +39,8 @@ class ModelConfig(BaseModel):
     alpha: float
     categorical_vars_with_na_frequent: List[str]
     numerical_vars_with_na: List[str]
-    numericals_log_vars: Sequence[str]
-    gender_vars: List[str]
+    numericals_log_vars: Sequence[str] ## Need to see what the difference in list and Sequence.
+    genderone_hot_encoding_vars: List[str]
     categorical_vars: Sequence[str]
     gender_mappings: Dict[str, int]
     

@@ -12,7 +12,7 @@ from classification_model.config.core import DATASET_DIR, TRAINED_MODEL_DIR, con
 def load_dataset(*, file_name: str) -> pd.DataFrame:
     dataframe = pd.read_csv(Path(f"{DATASET_DIR}/{file_name}"))
     #dataframe["MSSubClass"] = dataframe["MSSubClass"].astype("O")
-    dataframe['cabin'] = dataframe['cabin'].str.replace('\d+', '', regex=True)
+    dataframe['Cabin'] = dataframe['Cabin'].str.replace('\d+', '', regex=True)
 
     # rename variables beginning with numbers to avoid syntax errors later
     #transformed = dataframe.rename(columns=config.model_config.variables_to_rename)

@@ -1,8 +1,8 @@
-from feature_engine.encoding import OrdinalEncoder, RareLabelEncoder
+from feature_engine.encoding import OrdinalEncoder, RareLabelEncoder, OneHotEncoder
 from feature_engine.imputation import (
     AddMissingIndicator,
     CategoricalImputer,
-    MeanMedianImputer,
+    MeanMedianImputer,  
 )
 from feature_engine.selection import DropFeatures
 from feature_engine.transformation import LogTransformer
@@ -48,15 +48,15 @@ price_pipe = Pipeline(
         ("drop_features", DropFeatures(features_to_drop=[config.model_config.ref_var])),
         # ==== VARIABLE TRANSFORMATION =====
         ("log", LogTransformer(variables=config.model_config.numericals_log_vars)),
-        # === mappers ===
+        # === mappers ====
+        # No Mapping Done here
+        # == CATEGORICAL ENCODING
         (
-            "mapper_gender",
-            pp.Mapper(
-                variables=config.model_config.gender_vars,
-                mappings=config.model_config.gender_mappings,
+            "categorical_encoder", 
+            OneHotEncoder(
+                drop_last = True, variables = config.model_config.one_hot_encoding_vars
             ),
         ),
-        # == CATEGORICAL ENCODING
         (
             "rare_label_encoder",
             RareLabelEncoder(
