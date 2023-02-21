@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from pydantic import BaseModel, ValidationError
 
-from regression_model.config.core import config
+from classification_model.config.core import config
 
 
 def drop_na_inputs(*, input_data: pd.DataFrame) -> pd.DataFrame:
@@ -45,7 +45,7 @@ def validate_inputs(*, input_data: pd.DataFrame) -> Tuple[pd.DataFrame, Optional
     return validated_data, errors
 
 
-class HouseDataInputSchema(BaseModel):
+class TitanicDataInputSchema(BaseModel):
     Alley: Optional[str]
     BedroomAbvGr: Optional[int]
     BldgType: Optional[str]

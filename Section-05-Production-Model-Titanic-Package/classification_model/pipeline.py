@@ -11,8 +11,8 @@ from sklearn.linear_model import Lasso
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import Binarizer, MinMaxScaler
 
-from regression_model.config.core import config
-from regression_model.processing import features as pp
+from classification_model.config.core import config
+from classification_model.processing import features as pp
 
 price_pipe = Pipeline(
     [
@@ -45,51 +45,15 @@ price_pipe = Pipeline(
                 variables=config.model_config.numerical_vars_with_na,
             ),
         ),
-        # == TEMPORAL VARIABLES ====
-        (
-            "elapsed_time",
-            pp.TemporalVariableTransformer(
-                variables=config.model_config.temporal_vars,
-                reference_variable=config.model_config.ref_var,
-            ),
-        ),
         ("drop_features", DropFeatures(features_to_drop=[config.model_config.ref_var])),
         # ==== VARIABLE TRANSFORMATION =====
         ("log", LogTransformer(variables=config.model_config.numericals_log_vars)),
-        (
-            "binarizer",
-            SklearnTransformerWrapper(
-                transformer=Binarizer(threshold=0),
-                variables=config.model_config.binarize_vars,
-            ),
-        ),
         # === mappers ===
         (
-            "mapper_qual",
+            "mapper_gender",
             pp.Mapper(
-                variables=config.model_config.qual_vars,
-                mappings=config.model_config.qual_mappings,
-            ),
-        ),
-        (
-            "mapper_exposure",
-            pp.Mapper(
-                variables=config.model_config.exposure_vars,
-                mappings=config.model_config.exposure_mappings,
-            ),
-        ),
-        (
-            "mapper_finish",
-            pp.Mapper(
-                variables=config.model_config.finish_vars,
-                mappings=config.model_config.finish_mappings,
-            ),
-        ),
-        (
-            "mapper_garage",
-            pp.Mapper(
-                variables=config.model_config.garage_vars,
-                mappings=config.model_config.garage_mappings,
+                variables=config.model_config.gender_vars,
+                mappings=config.model_config.gender_mappings,
             ),
         ),
         # == CATEGORICAL ENCODING
