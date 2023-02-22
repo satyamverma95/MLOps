@@ -3,6 +3,9 @@ from config.core import config
 from pipeline import price_pipe
 from processing.data_manager import load_dataset, save_pipeline
 from sklearn.model_selection import train_test_split
+import logging
+
+logging.basicConfig(filename=config.model_config.log_file, level=logging.INFO)
 
 
 def run_training() -> None:
@@ -10,6 +13,8 @@ def run_training() -> None:
 
     # read training data
     data = load_dataset(file_name=config.app_config.raw_data_file)
+    #logging.info("data Before Split\n")
+    logging.info(data.to_string())
 
     # divide train and test
     X_train, X_test, y_train, y_test = train_test_split(
@@ -21,11 +26,12 @@ def run_training() -> None:
         random_state=config.model_config.random_state,
     )
 
-    y_train = np.log(y_train)
+    #y_train = np.log(y_train)
 
     # fit model
-    print("X_Train and Y_Train")
-    print(X_train, y_train)
+    logging.info("X_Train and Y_Train\n")
+    logging.info(X_train.to_string())
+    logging.info(y_train.to_string())
     price_pipe.fit(X_train, y_train)
 
     # persist trained model

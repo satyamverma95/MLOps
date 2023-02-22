@@ -34,19 +34,19 @@ def validate_inputs(*, input_data: pd.DataFrame) -> Tuple[pd.DataFrame, Optional
     #relevant_data = input_data[config.model_config.features].copy()
     #validated_data = drop_na_inputs(input_data=relevant_data)
     #errors = None+
-    pre_processed_data = pre_preocessing_pipeline(input_data)
-
-
+    #pre_processed_data = pre_preocessing_pipeline(dataframe=input_data)
+    validated_data = input_data[config.model_config.features].copy()
+    errors = None
 
     try:
         # replace numpy nans so that pydantic can validate
         MultipleTitanicPassengerDataInputs(
-            inputs=pre_processed_data.replace({np.nan: None}).to_dict(orient="records")
+            inputs=validated_data.replace({np.nan: None}).to_dict(orient="records")
         )
     except ValidationError as error:
         errors = error.json()
 
-    return pre_processed_data, errors
+    return validated_data, errors
 
 
 class TitanicDataInputSchema(BaseModel):
@@ -64,7 +64,6 @@ class TitanicDataInputSchema(BaseModel):
     embarked : Optional[str]
     boat : Optional[int]
     body : Optional[int]
-    home.dest : Optional[str]
     
 
 

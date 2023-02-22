@@ -10,6 +10,9 @@ raw_data_file : raw_data.csv
 # The variable we are attempting to predict (sale price)
 target: survived
 
+#logging file
+log_file : debug.log
+
 pipeline_name: classification_model
 pipeline_save_file: classification_model_output_v
 
@@ -31,7 +34,7 @@ features:
   - fare #No NA
   - cabin #Has NA
   - embarked #Has N
-
+  - title
 
 
 #['pclass', 'age', 'sibsp', 'parch', 'fare'] - Numerical

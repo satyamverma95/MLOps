@@ -34,6 +34,7 @@ class ModelConfig(BaseModel):
     """
 
     target: str
+    log_file : str
     features: List[str]
     test_size: float
     random_state: int
