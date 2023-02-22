@@ -1,27 +1,25 @@
 from pathlib import Path
-from typing import Dict, List, Optional, Sequence
+from typing import Dict, List, Sequence
 
 from pydantic import BaseModel
 from strictyaml import YAML, load
 
-import classification_model  #How does this import happens
+import regression_model
 
 # Project Directories
-PACKAGE_ROOT = Path(classification_model.__file__).resolve().parent
+PACKAGE_ROOT = Path(regression_model.__file__).resolve().parent
 ROOT = PACKAGE_ROOT.parent
 CONFIG_FILE_PATH = PACKAGE_ROOT / "config.yml"
 DATASET_DIR = PACKAGE_ROOT / "datasets"
 TRAINED_MODEL_DIR = PACKAGE_ROOT / "trained_models"
 
 
-#Look into pydantic library , it is been used for data validation
 class AppConfig(BaseModel):
     """
     Application-level config.
     """
 
     package_name: str
-    raw_data_file :str
     training_data_file: str
     test_data_file: str
     pipeline_save_file: str
@@ -34,28 +32,28 @@ class ModelConfig(BaseModel):
     """
 
     target: str
+    variables_to_rename: Dict
     features: List[str]
     test_size: float
     random_state: int
     alpha: float
     categorical_vars_with_na_frequent: List[str]
-    categorical_vars_with_na_missing : List[str]
-    numerical_vars : List[str]
+    categorical_vars_with_na_missing: List[str]
     numerical_vars_with_na: List[str]
-    numericals_log_vars: Sequence[str] ## Need to see what the difference in list and Sequence.
-    one_hot_encoding_vars: List[str]
-    cabin_vars : List[str]
-    name_vars: List[str]
-    new_feature : List[str]
-    unused_vars : List[str]
+    temporal_vars: List[str]
+    ref_var: str
+    numericals_log_vars: Sequence[str]
+    binarize_vars: Sequence[str]
+    qual_vars: List[str]
+    exposure_vars: List[str]
+    finish_vars: List[str]
+    garage_vars: List[str]
     categorical_vars: Sequence[str]
-    
+    qual_mappings: Dict[str, int]
+    exposure_mappings: Dict[str, int]
+    garage_mappings: Dict[str, int]
+    finish_mappings: Dict[str, int]
 
-    #variables_to_rename: Dict
-    #temporal_vars: List[str]
-    #ref_var: str
-    #binarize_vars: Sequence[str]
-    #categorical_vars_with_na_missing: List[str]
 
 class Config(BaseModel):
     """Master config object."""
@@ -71,7 +69,7 @@ def find_config_file() -> Path:
     raise Exception(f"Config not found at {CONFIG_FILE_PATH!r}")
 
 
-def fetch_config_from_yaml(cfg_path: Optional[Path] = None) -> YAML:
+def fetch_config_from_yaml(cfg_path: Path = None) -> YAML:
     """Parse YAML containing the package configuration."""
 
     if not cfg_path:

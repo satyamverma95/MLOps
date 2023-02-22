@@ -53,15 +53,16 @@ def pre_preocessing_pipeline(*, dataframe) -> pd.DataFrame:
     ########################################################################
 
     print("Type of Object", type(dataframe))
-    print("dataframe", dataframe)
+    #print("dataframe Before PreProcessing \n", dataframe)
 
     dataframe['cabin'] = dataframe['cabin'].apply(lambda row: get_first_cabin(row=row))
-    dataframe['name'] = dataframe['name'].apply(lambda passenger: get_title(passenger=passenger))
+    dataframe['title'] = dataframe['name'].apply(lambda passenger: get_title(passenger=passenger))
     dataframe = remove_unwarranted_symbols(dataframe=dataframe)
     dataframe['fare'] = dataframe['fare'].astype('float')
     dataframe['age'] = dataframe['age'].astype('float')
     dataframe.drop(labels=config.model_config.unused_vars, axis=1, inplace=True)
 
+    #print("DataFrame After Processing \n", dataframe)
 
     return dataframe
 

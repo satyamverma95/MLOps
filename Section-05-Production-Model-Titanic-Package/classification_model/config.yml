@@ -59,6 +59,9 @@ categorical_vars_with_na_missing:
 #categorical_vars_with_na_missing:
 # - Sex
 # - Embarked
+numerical_vars:
+  - age
+  - fare
 
 numerical_vars_with_na:
   - age
@@ -92,9 +95,10 @@ unused_vars:
   - home.dest
 
 categorical_vars:
+  - sex
   - cabin
   - embarked
-  
+  - title  
 
 # variable mappings
 #If you want to convert categorical value to Numerical value we use this mapping. Unioun of all categorical values 
